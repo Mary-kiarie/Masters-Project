@@ -129,9 +129,9 @@ ggplot(PRlong, aes(x = age, y = dental, color = factor(gender))) +
 
 
 ####fitting the curvilinear model
-SITKA_RIT <- lme(size ~ Time + I(Time^2) + treat + Time*treat,
+curvelinear <- lme(size ~ Time + I(Time^2) + treat + Time*treat,
                  random =   ~ Time | tree, data = SitkaL.grouped, method = 'ML')
-summary(SITKA_RIT)
+summarycurvelinear)
 
 ###centering the variable 'time' to avoid having negative intercepts.
 
@@ -139,16 +139,16 @@ SitkaL.grouped$Time.c.152 <- SitkaL.grouped$Time - 152
 View(SitkaL.grouped)
 
 #Sitka Curvilinear model with time centered at 152
-SITKA_RIT <- lme(size ~ Time.c.152 + I((Time.c.152)^2) + treat + Time.c.152*treat,
+curvelinear <- lme(size ~ Time.c.152 + I((Time.c.152)^2) + treat + Time.c.152*treat,
                  random =   ~ Time.c.152 | tree, data = SitkaL.grouped, method = 'ML')
-summary(SITKA_RIT)
+summary(curvelinear)
 
 #Model trimming  removing the dummy variable term 'treatozone' 
 #since it is not statistically significant
 
-SITKA_RIT <- lme(size ~ Time.c.152 + I((Time.c.152)^2)  + Time.c.152*treat,
+curvelinear <- lme(size ~ Time.c.152 + I((Time.c.152)^2)  + Time.c.152*treat,
                  random =   ~ Time.c.152 | tree, data = SitkaL.grouped, method = 'ML')
-summary(SITKA_RIT)
+summary(curvelinear)
 
 
 ##Visualizing the curvilinear model on Sitka spruce data
